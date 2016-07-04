@@ -1,0 +1,5 @@
+db.json
+*.log
+coding-pages
+public
+.deploy_git
