@@ -1,0 +1,6 @@
+User-agent: *
+
+Allow: /
+
+Sitemap: http://blog.icewingcc.com/sitemap.xml
+Sitemap: http://blog.icewingcc.com/baidusitemap.xml
