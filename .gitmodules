@@ -1,0 +1,4 @@
+[submodule "themes/next"]
+	path = themes/next
+	url = git@github.com:jerrybendy/hexo-theme-next.git
+	branch = jerry-branch
