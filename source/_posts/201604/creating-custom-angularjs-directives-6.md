@@ -59,13 +59,11 @@ categories:
 
 往指令中添加一个控制器对于指令中的 DOM 操作和事件处理来说没有任何意义。虽然例子中可以通过在视图中添加 AngularJS 指令（如 `ngClick`）和控制器的方式完成相同的功能，但如果 DOM 操作是指令整体要完成的工作的话我们还是没有理由要使用控制器的。
 
-In cases where you’re manipulating the DOM, integrating data into the generated HTML, handling events, and more, adding a controller can minimize the amount of code you write and simplify the overall process in some cases. To make this more clear, let’s look at an example of a directive then renders a list of items and provides a button that can be used to add items to the list. Here’s the simple output that the directive renders:
-
-
+在你需要进行一些简单的 DOM 操作，或整合数据到 HTML， 或处理事件等的时候，添加控制器可以很大程度上简化你的代码。下面通过一个简单的指令的例子来理解上面这句话。例子中生成一个列表，并且可以通过按钮添加项目到列表中。下图是可能的输出：
 
 ![](https://aspblogs.blob.core.windows.net/media/dwahlin/Windows-Live-Writer/Creating-Custom-AngularJS-Directives-Par_D3AB/image_thumb%5B2%5D_2.png)
 
-There are several different ways to handle rendering this type of UI. A typical DOM-centric approach would use the `link` function to handle everything as shown in the following directive. Keep in mind there are many ways to do this and the overall goal is to demonstrate DOM-centric code (as simply as possible):
+有很多种方法可以做到这种效果。一个典型的 DOM 为中心的方法是使用 `link` 函数处理指令中显示的内容。请记住，有很多方法可以做到这一点，总的目标是展示 DOM 为中心的代码（尽可能简单）：
 
 ```js
 (function() {
@@ -131,7 +129,7 @@ There are several different ways to handle rendering this type of UI. A typical 
 }());
 ```
 
-Although this code gets the job done, it’s more along the lines of a jQuery plugin and takes what I refer to as a “[control-oriented](http://weblogs.asp.net/dwahlin/The-JavaScript-Cheese-is-Moving_3A00_-Data_2D00_Oriented-vs.-Control_2D00_Oriented-Programming)” approach where tag names and/or IDs are prevalent in the code. All of the DOM manipulation is handled manually which is fine and maybe even preferred in some cases (for performance reasons for example), but it’s definitely not the normal way we build Angular apps. The DOM manipulation code is mixed in with the scope which starts to get messy especially as the directive grows in size.
+虽然这些代码完成了这个功能，却是使用了一种类型于 jQuery 插件的思路来写的，使用一种作者称之为 “[control-oriented](http://weblogs.asp.net/dwahlin/The-JavaScript-Cheese-is-Moving_3A00_-Data_2D00_Oriented-vs.-Control_2D00_Oriented-Programming)” 的方式，即标签名称和/或ID在代码中普遍存在。手动操作 DOM 算是一种好的方法，尤其是在一些特殊的场景下（为性能考虑），但这绝不是我们构建 Angualar 应用程序的方式。这种混合的写法会使代码变得凌乱并让指令变得臃肿。
 
 As the button is clicked the `addItem()` function is called which handles calling an isolate scope property (`add`) and invoking the `render()` function which renders a `<ul>` tag and multiple `<li>` tags. There’s nothing wrong with this approach per se, but I’m not a fan of having a lot of separate strings embedded in the JavaScript since they can cause a maintenance nightmare over time. While a small directive like this is fairly easy to maintain, the code can get more challenging as the directive has additional features added.
 
