@@ -1,5 +1,5 @@
 ---
-title: 创建自定义angularJS指令（四）- transclude与restrict
+title: 【译】创建自定义angularJS指令（四）- transclude与restrict
 date: 2016-04-25 22:53:51
 updated: 2016-05-06 23:12:00
 tags:
