@@ -1,5 +1,5 @@
 ---
-title: 创建自定义angularJS指令（二）- 独立作用域
+title: 【译】创建自定义angularJS指令（二）- 独立作用域
 date: 2016-04-03 22:25:14
 updated: 2016-04-07 22:30:14
 tags:

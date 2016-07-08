@@ -1,5 +1,5 @@
 ---
-title: 创建自定义angularJS指令（一）- 基础
+title: 【译】创建自定义angularJS指令（一）- 基础
 date: 2016-03-31 19:48:06
 updated: 2016-04-02 21:21:06
 tags:

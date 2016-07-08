@@ -1,5 +1,5 @@
 ---
-title: 创建自定义angularJS指令（六）- 使用控制器
+title: 【译】创建自定义angularJS指令（六）- 使用控制器
 date: 2016-04-27 00:04:06
 updated: 2016-06-18 21:37:06
 tags:
@@ -131,15 +131,15 @@ categories:
 
 虽然这些代码完成了这个功能，却是使用了一种类型于 jQuery 插件的思路来写的，使用一种作者称之为 “[control-oriented](http://weblogs.asp.net/dwahlin/The-JavaScript-Cheese-is-Moving_3A00_-Data_2D00_Oriented-vs.-Control_2D00_Oriented-Programming)” 的方式，即标签名称和/或ID在代码中普遍存在。手动操作 DOM 算是一种好的方法，尤其是在一些特殊的场景下（为性能考虑），但这绝不是我们构建 Angualar 应用程序的方式。这种混合的写法会使代码变得凌乱并让指令变得臃肿。
 
-As the button is clicked the `addItem()` function is called which handles calling an isolate scope property (`add`) and invoking the `render()` function which renders a `<ul>` tag and multiple `<li>` tags. There’s nothing wrong with this approach per se, but I’m not a fan of having a lot of separate strings embedded in the JavaScript since they can cause a maintenance nightmare over time. While a small directive like this is fairly easy to maintain, the code can get more challenging as the directive has additional features added.
+在上面的代码中，当点击按钮时，`addItem()`函数被调用，添加一个新的元素并重新`render()`。`render()`函数创建一个`<ul>`标签和多个`<li>`标签。虽然这样看起来是没有什么问题，事实上这会导致代码的碎片化，将会使以后的维护工作变得非常困难。或许在这种很小的指令里面看起来问题还不算严重，在以后需要给指令添加或修改功能时这个问题才会日渐突出。
 
-There’s also a more subtle issue at play in this code. When `scope.add()` is called the invoked parent scope function will need to use `$scope.$apply()` to update any properties in the parent scope since the call to `add` is being made from vanilla JavaScript rather than from within the context of AngularJS (something that’s outside the scope of this post, but definitely important to consider). Finally, the directive doesn’t resemble the “child view” concept that was mentioned at the beginning of the post – it’s just a bunch of code. How can a controller help out in this example? Let’s take a look.
+还有在这段代码中有一个更细微的问题。当调用`scope.add()`或其它方式修改了任何父范围内作用域的值后还必须要调用`$scope.$apply()`应用更改（具体原因在这篇文章中就不详述了，但这是绝对需要考虑的因素）。最后，指令并不像文章开头提到的“子视图”的概念——它只是一串代码。在这个例子中控制器能如何更好的帮助我们吗？Let's take a look。
 
-## Adding a Controller and View into a Directive
+## 给指令添加控制器和视图
 
-The directive shown in the previous section gets the job done but what if you could write it much like you’d write a standard AngularJS view and use a more [data-oriented](http://weblogs.asp.net/dwahlin/The-JavaScript-Cheese-is-Moving_3A00_-Data_2D00_Oriented-vs.-Control_2D00_Oriented-Programming) approach as opposed to the [control-oriented](http://weblogs.asp.net/dwahlin/The-JavaScript-Cheese-is-Moving_3A00_-Data_2D00_Oriented-vs.-Control_2D00_Oriented-Programming) approach that the DOM takes? By using a controller and view in a directive the development process feel more along the lines of what you do everyday in AngularJS applications.
+上一节中的指令能够完成任务，但我们更愿意写一个标准的 AngularJS 视图，使用数据驱动的方式改变 DOM。通过在指令中使用控制器和视图，我们就可以像写一般的视图一样写指令。
 
-Here’s an example of converting the directive shown earlier into a cleaner version (in my opinion anyway) that relies on a controller and a simple view:
+下面的例子把之前的指令代码转换为控制器的形式，有没有感觉很清新？
 
 ```js
 (function() {
@@ -183,12 +183,12 @@ Here’s an example of converting the directive shown earlier into a cleaner ver
 }());
 ```
 
-The directive could be used in one of the following ways:
+这个指令可以以下面任一种方式使用：
 
 ```html
-Attribute: <div isolate-scope-with-controller datasource="customers" add="addCustomer()"></div>
+属性: <div isolate-scope-with-controller datasource="customers" add="addCustomer()"></div>
 
-Element: <isolate-scope-with-controller datasource="customers" add="addCustomer()">
+元素: <isolate-scope-with-controller datasource="customers" add="addCustomer()">
          </isolate-scope-with-controller>
 ```
 
