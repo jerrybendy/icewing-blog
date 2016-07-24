@@ -1,7 +1,7 @@
 ---
 title: 【译】创建自定义angularJS指令（六）- 使用控制器
 date: 2016-04-27 00:04:06
-updated: 2016-06-18 21:37:06
+updated: 2016-07-24 23:34:15
 tags:
   - AngularJS
   - 指令
