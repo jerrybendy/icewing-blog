@@ -196,7 +196,7 @@ categories:
 
 视图使用 `template` 属性定义，控制器使用 `controller` 属性定义。当然视图还可以使用 `templateUrl` 从外部文件导入，没必要都直接写在指令代码里面。当视图文件有很多代码时，`templateUrl` 或 `$templateCache` 会是更好的选择。
 
-继续上面的例子，视图中经常会调用其它指令，如 `ng-click`、`ng-repeat`，也会使用如 `{{ ... }}` 或 `ng-bind` 这种形式的数据绑定。避免 DOM 操作的好处在这里更加明显。控制器中注入 `$scope` 并定义 `items` 属性，视图中使用 `ng-repeat` 在 `items` 中循环并生成 `<li>`标签。当点击添加按钮时，会调用 `$scope` 中的 `addItem()` 方法并添加一个新的项目到 `items` 中。因为 `addItem()` 是由 `ng-click` 调用的，所以父级作用域在使用 `$scope.add` 的时候无需关心前面提到的关于 `$scope.$apply()` 的任何问题。
+继续上面的例子，视图中经常会调用其它指令，如 `ng-click`、`ng-repeat`，也会使用如 `{% raw %}{{ ... }}{% endraw %}` 或 `ng-bind` 这种形式的数据绑定。避免 DOM 操作的好处在这里更加明显。控制器中注入 `$scope` 并定义 `items` 属性，视图中使用 `ng-repeat` 在 `items` 中循环并生成 `<li>`标签。当点击添加按钮时，会调用 `$scope` 中的 `addItem()` 方法并添加一个新的项目到 `items` 中。因为 `addItem()` 是由 `ng-click` 调用的，所以父级作用域在使用 `$scope.add` 的时候无需关心前面提到的关于 `$scope.$apply()` 的任何问题。
 
 通常在指令需要很高的性能的情况下更建议使用原始的 DOM 操作的方式，直接操作 DOM 总是比使用控制器要快很多（可以避免很多额外的操作）。如果你参加我的讲座将可能会听到我经常说这么一名话：“使用正确的工具做正确的事情（Use the right tool for the right job）”，我从来不会相信有任何一种工具可以适用所有场景，并知道每一种情形和应用都是独一无二的。
 
