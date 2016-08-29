@@ -28,7 +28,7 @@ This code results in a `TypeError` because `this.setState is not a function`. Th
 
 Some of these alternatives are old techniques that have been used in Javascript for years, others are specific to React and some won’t even work in browsers yet, but we’ll explore them all anyway.
 
-#### 1. Alias This
+### 1. Alias This
 
 This is approach has been around for a lot longer than React and it involves creating a second reference to the `this` at the top level of the component’s scope.
 
@@ -45,7 +45,7 @@ This approach is lightweight and very easy to understand for beginners (although
 
 It feels a bit like you’re working against the semantics of the language itself, but it’s a simple solution and it works well.
 
-#### 2. Bind This
+### 2. Bind This
 
 The next option we have involves injecting the correct context into our callback function at runtime.
 
@@ -61,7 +61,7 @@ All functions in Javascript have a [bind method](https://developer.mozilla.org/e
 
 This approach is a little bit harder to understand for other programmers and if you’re working with deeply nested, asynchronous code, then you’ll find yourself having to remember to bind each function as you go.
 
-#### 3. React Component Methods
+### 3. React Component Methods
 
 React allows you to define arbitrary methods on your component classes and these methods are automatically bound with the correct context for `this` when you create your components with `React.createClass`. This allows you move your callback code out onto your component.
 
@@ -84,7 +84,7 @@ This can be a very elegant solution if you aren’t doing much work in your comp
 
 It’s important to remember that this [autobinding doesn’t apply to ES2015 classes](https://facebook.github.io/react/docs/reusable-components.html#no-autobinding). If you use them to declare your components, then you’ll have to use one of the other alternatives.
 
-#### 4. ES2015 Arrows
+### 4. ES2015 Arrows
 
 The ES2015 specification introduces the [arrow function syntax](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions) for writing function expressions. As well as being terser than regular function expressions, they can also have implicit return and most importantly, they always use the value of `this` from the enclosing scope.
 
@@ -118,7 +118,7 @@ var loaded = function loaded() {
 };
 ```
 
-#### 5. ES2016 Bind Syntax
+### 5. ES2016 Bind Syntax
 
 There’s currently a proposal for an [ES2016 (ES7) bind syntax](https://github.com/zenparsing/es-function-bind), which introduces :: as a new operator. The bind operator expects a value on the Left-Hand Side and a function on the Right-Hand Side, this syntax binds the RHS function, using the LHS as the value for this.
 
@@ -173,7 +173,7 @@ Whilst it’s interesting to know about this operator, it’s not particularly u
 
 React component context probably isn’t the future of the bind operator, but if you are interested take a look at some of the great projects where it’s being used to great effect (such as [mori-ext](https://www.npmjs.com/package/mori-ext)).
 
-#### 6. Method Specific
+### 6. Method Specific
 
 Some functions allow you to pass an explicit value for `this` as an argument. One example is `map`, which accepts this value as it’s final argument.
 
