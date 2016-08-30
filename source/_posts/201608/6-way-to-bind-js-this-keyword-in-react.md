@@ -1,18 +1,24 @@
 ---
-title: 6 Ways to Bind JavaScript’s this Keyword in React, ES6 & ES7
+title: 6 种方法在 React 中绑定 javascript 的 this 关键字（ES6/ES7）
 date: 2016-08-29 09:06:01
 updated: 2016-08-29 09:06:01
 tags:
+  - javascript
+  - ES6
+  - ES7
 categories:
+  - 前端
 ---
 
-Javascript’s `this` keyword is the source of a lot of confusion for many developers every single day. Unlike a language with a rigid class model, it’s not always clear what `this` is going to refer to in your code, especially when dealing with callback functions, whose callsites you have no control over.
+Javascript 中的 `this` 关键字对很多 JS 开发者来说都是令人疑惑、头痛东西，很多时候往往搞不清楚某个 `this` 究竟指的是谁，尤其是在多层回调嵌套的情况下，OH GOD!!
 
-It’s trivial for some other code to rebind the context of the function you’re working with―using the `new` keyword and some of the methods that are built onto Function.prototype. This introduces an entire class of confusing scenarios and often you’ll see callback driven code scattered with calls to `.bind(this)`.
+It’s trivial for some other code to rebind the context of the function you’re working with―using the `new` keyword and some of the methods that are built onto `Functon.prototype`. This introduces an entire class of confusing scenarios and often you’ll see callback driven code scattered with calls to `.bind(this)`.
 
-## The Problem
 
-Because React uses the `this` keyword to reference the component context inside each class, it also inherits this confusion. You’re probably used to seeing code like this inside React components.
+
+## 问题
+
+因为 React 使用 `this` 关键字在内部引用组件上下文，也就带来了关于 `this` 的一些困惑。你很可以见过或写过下面这样的代码：
 
 ```js
 this.setState({ loading: true });
@@ -22,15 +28,15 @@ fetch('/').then(function loaded() {
 });
 ```
 
-This code results in a `TypeError` because `this.setState is not a function`. This is because when the callback to the promise is called, the internal context of the function is changed and `this` references the wrong object. Let’s take a look at the ways in which we can prevent this from happening.
+这段代码会返回一个 `TypeError`，因为 `this.setState is not a function`。这是因为在 promise 的回调中，函数执行的上下文已经改变，`this` 指向了错误的对象（这时 `this` 指回调函数本身）。下面我们来看下如何避免这种问题的发生。
 
-## The Options
+## 解决方案
 
-Some of these alternatives are old techniques that have been used in Javascript for years, others are specific to React and some won’t even work in browsers yet, but we’ll explore them all anyway.
+有一些可选的解决方案已经被使用了很多年，还有一些是仅适用于 React 的，甚至有些方案在浏览器环境下是不能使用的。我们先来看一下。
 
-### 1. Alias This
+### 1. 为 `this` 创建别名
 
-This is approach has been around for a lot longer than React and it involves creating a second reference to the `this` at the top level of the component’s scope.
+这个应该算是被使用最多的一种方法了吧。在函数的顶部为 `this` 创建一个别名，并在组件内部通过这个别名访问 `this`。
 
 ```js
 var component = this;
@@ -41,13 +47,11 @@ fetch('/').then(function loaded() {
 });
 ```
 
-This approach is lightweight and very easy to understand for beginners (although it may not be clear why you did it). It gives you a visual guarantee that you’ll be referring to the correct context.
+这种方法很轻量，并且易于理解。使用一个有意义的别名可以很轻松的使用上下文 `this`。
 
-It feels a bit like you’re working against the semantics of the language itself, but it’s a simple solution and it works well.
+### 2. bind this
 
-### 2. Bind This
-
-The next option we have involves injecting the correct context into our callback function at runtime.
+第二种方法是运行时在回调函数上绑定我们自己的上下文环境。
 
 ```js
 this.setState({ loading: true });
@@ -57,13 +61,13 @@ fetch('/').then(function loaded() {
 }.bind(this));
 ```
 
-All functions in Javascript have a [bind method](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind), which allow you to specify the value for `this`. Once a function has been “bound” the context can’t be overriden, meaning that we have a guarantee that `this` will refer to the correct thing.
+从 ES5 开始，所有 Javascript 函数都有一个[bind 方法](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind)，可以允许在函数执行的时候重新为函数内部绑定一个 `this`。一旦函数绑定了上下文 `this` 就不可以被重写，也就意味着绑定的上下文环境总是正确的。
 
-This approach is a little bit harder to understand for other programmers and if you’re working with deeply nested, asynchronous code, then you’ll find yourself having to remember to bind each function as you go.
+这种方式对于其它语言的开发者来说可能很难理解，尤其在有多层函数嵌套时使用 `bind`，这时候就只能凭借自己的理解和记忆来记住究竟哪个 `this` 指的哪个对象。
 
-### 3. React Component Methods
+### 3. React 组件方法
 
-React allows you to define arbitrary methods on your component classes and these methods are automatically bound with the correct context for `this` when you create your components with `React.createClass`. This allows you move your callback code out onto your component.
+React 可以使用 `createClass` 创建一个组件类对象，组件类对象里的方法会自动绑定到组件的上下文环境，所以你可以直接在这里使用 `this`。这样可以允许把回调直接写在组件里。
 
 ```js
 React.createClass({
@@ -78,15 +82,15 @@ React.createClass({
 });
 ```
 
-This can be a very elegant solution if you aren’t doing much work in your component (you probably shouldn’t be, either!). It allows you to use named functions, flatten your code and forget about having the correct context. In fact, if you try to `.bind(this)` onto a component method, then React will warn you that you’re doing unnecessary work.
+如果你的组件内部不需要做太多工作的话，想必这会是一种非常优雅的方案。这能允许你使用命名的方法、可以使你的代码更加扁平化，并且忘记 `this` 上下文这回事。事实上，如果你尝试在组件方法中使用 `.bind(this)`， React 将会警告你正在做一件不必要的工作。
 
 > bind(): You are binding a component method to the component. React does this for you automatically in a high-performance way, so you can safely remove this call.
 
-It’s important to remember that this [autobinding doesn’t apply to ES2015 classes](https://facebook.github.io/react/docs/reusable-components.html#no-autobinding). If you use them to declare your components, then you’ll have to use one of the other alternatives.
+很重要的是，这种方式并[不适用于 ES6 类语法的创建的 React 组件](https://facebook.github.io/react/docs/reusable-components.html#no-autobinding)。 如果你正在使用 ES6 的类语法创建 React 组件，可以尝试下后面的方法。
 
-### 4. ES2015 Arrows
+### 4. ES2015（ES6）箭头语法
 
-The ES2015 specification introduces the [arrow function syntax](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions) for writing function expressions. As well as being terser than regular function expressions, they can also have implicit return and most importantly, they always use the value of `this` from the enclosing scope.
+ES2015 中新加入了[箭头语法](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions)用来更方便的写函数表达式。箭头语法除了可以以更简短的方式写函数外，还有一些很重要的特性，例如箭头语法创建的函数体中没有 `this` 而总是使用外部的 `this` 对象。
 
 ```js
 this.setState({ loading: true });
@@ -96,21 +100,21 @@ fetch('/').then(() => {
 });
 ```
 
-Regardless of how many levels of nesting you use, arrow functions will always have the correct context.
+无论多少层的函数嵌套，箭头函数中总是使用正确的 `this` 上下文。
 
-Unfortunately, we’ve lost the ability to name our function. This makes debugging harder, as stack traces referring to this function will label it as `(anonymous function)`.
+很不幸的是，这样我们将无法命名我们的函数。这会使调试变得更困难，调用栈中将会显示这是一个 `(anonymous function)` （匿名函数）。
 
-If you are using a compiler like [Babel](http://babeljs.io/) to transform ES2015 code into ES5, then you’ll that there are some interesting qualities to be aware of.
+如果你使用 [Babel](http://babeljs.io/) 转换 ES6 的代码到 ES5，你将会发现一些比较有趣的现象。
 
-* In some cases the compiler can infer the name of the function if it has been assigned to a variable.
-* The compiler uses the Alias This approach to maintain context.
+* 有些情况下编译器会通过变量名推理出函数名
+* 编译器是通过为 `this` 创建别名的方法来保持上下文
 
 ```js
 const loaded = () => {
   this.setState({ loading: false });
 };
 
-// will be compiled to
+// 将会被编译为
 
 var _this = this;
 var loaded = function loaded() {
@@ -118,11 +122,11 @@ var loaded = function loaded() {
 };
 ```
 
-### 5. ES2016 Bind Syntax
+### 5. ES2016 （ES7）的绑定语法
 
-There’s currently a proposal for an [ES2016 (ES7) bind syntax](https://github.com/zenparsing/es-function-bind), which introduces :: as a new operator. The bind operator expects a value on the Left-Hand Side and a function on the Right-Hand Side, this syntax binds the RHS function, using the LHS as the value for this.
+这是一个 ES7 的提案，[ES2016（ES7）的绑定语法](https://github.com/zenparsing/es-function-bind)，使用两个冒号(`::`)作为新的操作符。绑定操作符要求左侧是一个值，并且右侧是需要处理的函数，使用这种语法相当于把双冒号左侧的数值绑定到右侧处理函数的 `this` 上下文中。
 
-Take this implementation of `map` for example.
+下面通过 `map` 来举个简单的例子：
 
 ```js
 function map(f) {
@@ -136,14 +140,14 @@ function map(f) {
 }
 ```
 
-Unlike lodash, we aren’t required to pass the data as an argument, allowing us to write code that makes `map` look like a member of our data instead.
+不同于 lodash，我们不需要在参数中传递数据，这使 `map` 函数看起来更像是数据的一个成员方法。
 
 ```js
 [1, 2, 3]::map(x => x * 2)
 // [2, 4, 6]
 ```
 
-Ever been fed up of having to use code like this?
+是不是曾经像下面这下写过？
 
 ```js
 [].map.call(someNodeList, myFn);
@@ -151,13 +155,13 @@ Ever been fed up of having to use code like this?
 Array.from(someNodeList).map(myFn);
 ```
 
-This operator will allow you to use the map function directly on array-like structures.
+ES7 绑定操作符允许你直接在类数组结构上使用 `map` 函数。
 
 ```js
 someNodeList::map(myFn);
 ```
 
-We can also make use of this syntax within our React components.
+我们也可以在 React 组件中使用这种语法：
 
 ```js
 this.setState({ loading: true });
