@@ -3,7 +3,10 @@ title: React on ES6+
 date: 2016-08-30 14:53:28
 updated: 2016-08-30 14:53:28
 tags:
+  - react
+  - ES6
 categories:
+  - 前端
 ---
 
 While redesigning [Instagram Web](https://instagram.com/instagram/) from the inside out this year, we enjoyed using a number of ES6+ features to write our React components. Allow me to highlight some of the ways that these new language features can change the way you write a React app, making it easier and more fun than ever.
@@ -217,3 +220,4 @@ I hope that you enjoy using ES6+ language features to write React code as much a
 ---
 
 via [babelJs.io](https://babeljs.io/blog/2015/06/07/react-on-es6-plus)
+
