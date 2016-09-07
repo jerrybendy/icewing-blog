@@ -202,9 +202,9 @@ categories:
 
 This thought process definitely applies to directives since there are many different ways to write them.  In many situations I’m happy with how AngularJS performs and know about the pitfalls to avoid so I prefer the controller/view type of directive whenever possible. It makes maintenance much easier down the road since you can leverage existing Angular directives in the directive’s view and modify the view using a controller and scope. If, however, I was trying to maximize performance and eliminate the use of directives such as ng-repeat then going the DOM-centric route with the `link` function might be a better choice. Again, choose the right tool for the right job.
 
-## Using controllerAs in a Directive
+## 在指令中使用 controllerAs
 
-If you’re a fan of the controllerAs syntax you may be wondering if the same style can be used inside of directives. The answer is “yes”! When you define a Directive Definition Object (DDO) in a directive you can add a `controllerAs` property. Starting with Angular 1.3 you’ll also need to add a [bindToController](https://docs.angularjs.org/api/ng/service/$compile) property as well to ensure that properties are bound to the controller rather than to the scope. Here’s an example of the previous directive that has been converted to use the controllerAs syntax:
+如果你是 `controllerAs` 语法的追捧者你将会为可以在指令中使用同样的语法而感到惊喜。当你在指令中定义了一个 指令定义对象（DDO, Directive Definition Object），你就可以为这个指令添加 `controllerAs` 属性。从 Angular 1.3 开始，你还需要添加一个 [bindToController](https://docs.angularjs.org/api/ng/service/$compile) 属性来确保是绑定到控制器而不是作用域。下面是一个使用 `controllerAs` 语法的例子：
 
 ```js
 (function() {
@@ -252,13 +252,15 @@ If you’re a fan of the controllerAs syntax you may be wondering if the same st
 }());
 ```
 
-Notice that a controller alias of `vm` (short for “ViewModel”) has been assigned to the `controllerAs` property and that the alias is used in the controller code and in the view. The `bindToController` property is set to `true` to ensure that properties are bound to the controller instead of the scope. While this code is very similar to the initial controller example shown earlier, it allows you to use “dot” syntax in the view (vm.customers for example) which is a recommended approach.
+注意例子里面的控制器别名 `vm` （`viewModel` 的缩写）赋给到 `controllerAs` 属性，并且同时在控制器和视图中被使用。`bindToController` 设置为 `true` 用于确保属性绑定到控制器而不是作用域。这种方式相对于前面所述的方法来说要显得更加的简洁，还允许你在视图中使用点语法（如 `vm.customers`），所以更推荐这种用法。
 
-## Conclusion
 
-Controllers can be used to cleanup directives in many scenarios. Although using a controller isn’t always necessary, you’ll find that by levering the “child view” concept in directives your code can be kept more maintainable and easier to work with. The next post in the series moves on to discuss additional features that can be used in directives such as $asyncValidators.
+## 总结
+
+使用控制器在一些场景下会使指令代码变得更加的简练、直观。虽然使用控制器通常来说不是必要的，但从“子视图”的概念中解放出来，让指令做更多有价值的操作，通常会让你的代码更具可维护性。下一篇文章我们来讨论一些可以在指令中使用的额外的功能，如 `$asyncValidators`。
 
 
 ---
 
 From [ASP.net](http://weblogs.asp.net/dwahlin/creating-custom-angularjs-directives-part-6-using-controllers)
+
