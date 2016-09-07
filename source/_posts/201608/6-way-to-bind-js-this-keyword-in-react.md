@@ -171,15 +171,16 @@ fetch('/').then(this::() => {
 });
 ```
 
-I’ll be the first to admit that this syntax is a little terrifying.
+可能我会是第一个站出来承认这种语法会让人觉得恐惧的人。
 
-Whilst it’s interesting to know about this operator, it’s not particularly useful in this context. It suffers from many of the same drawbacks as `.bind(this)` (in fact, that’s what Babel compiles it to) and you’re forced to use it again and again if you nest your code. It’s likely to confuse other programmers of all abilities.
+了解这个操作符会觉得很有趣，虽然它不是专为这种使用场景而生的。它解决了很多由于`.bind(this)`产生的缺点（事实上 babel 最终还是会将它编译成 `.bind(this)`），在解决很多层的嵌套代码中 `this` 的问题时可以放心的使用这种方式。当然这可能会使用其它开发人员有些困惑。
 
 React component context probably isn’t the future of the bind operator, but if you are interested take a look at some of the great projects where it’s being used to great effect (such as [mori-ext](https://www.npmjs.com/package/mori-ext)).
 
-### 6. Method Specific
 
-Some functions allow you to pass an explicit value for `this` as an argument. One example is `map`, which accepts this value as it’s final argument.
+### 6. 函数指定
+
+有些函数可以在执行时手动为它指定上下文的 `this`，例如 `map`，它接受的最后一个参数将会作为回调函数内的 `this`。
 
 ```js
 items.map(function(x) {
@@ -187,13 +188,11 @@ items.map(function(x) {
 }, this);
 ```
 
-Whilst this works, it’s not a consistent interface. Most functions don’t accept this parameter, so you’re probably better off favouring the other options discussed here.
+虽然这可以解决问题，但却不存在通用性。因为大部分的函数是不能接受重新指定的 `this` 的。
 
-## Conclusion
+## 总结
 
-We’ve seen a range of different ways to ensure that you end up with the correct context in your functions, but which one should you use?
-
-If **performance** is a concern, then aliasing `this` is probably going to be the fastest approach. Although you probably won’t notice a difference until you are working with tens of thousands of components and even then, there are many bottlenecks that would arise before it became an issue.
+上面我们说了一些上下文中使用正确的 `this` 的方法。如果担心**性能**问题，为 `this` 创建别名将会是最快的方法（由于箭头函数在编译后与创建别名相同，所以使用 ES6 的箭头函数也是很好的选择）。当然，也许直到你的界面有上万个组件也许都不会看到这种性能差别，也许到那时 `this` 的问题也不会成为真正的瓶颈。
 
 If you’re more concerned about **debugging**, then use one of the options that allows you to write named functions, preferably component methods as they’ll handle some performance concerns for you too.
 
@@ -216,3 +215,4 @@ fetch('/')
 ----
 
 via [sitepoint](https://www.sitepoint.com/bind-javascripts-this-keyword-react/)
+
