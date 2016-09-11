@@ -1,7 +1,7 @@
 ---
-title: Creating Custom AngularJS Directives Part 7 – Creating a Unique Value Directive using $asyncValidators
+title: 【译】创建自定义angularJS指令（七）- 使用 $asyncValidators 创建唯一值指令
 date: 2016-04-27 00:04:11
-updated: 2016-04-27 00:04:11
+updated: 2016-09-11 21:48:11
 tags:
   - AngularJS
   - 指令
@@ -25,16 +25,14 @@ categories:
 
 -----
 
+在上一篇文章中我演示了如何创建一个唯一值校验的指令来确定一个 email 地址是否已经被使用过。在 AngularJS 1.3+ 以上的版本中增加了许多新的特性可以使指令的代码变得更加整洁并且更易于使用。在这篇文章中，我将会更新之前的代码，尝试一下新的特性。下面展示的代码是 [Customer Manager Standard](https://github.com/DanWahlin/CustomerManagerStandard) 中的一部分，你可以在 Github 上看到完整的代码。
+
+下面的截图是运行后的一部分，在截图中，email 地址已经被其它用户使用，导致显示错误信息。
 
 
+![](https://cdn.icewing.cc/201609/image_2.png)
 
-In a previous post I demonstrated how to build a unique value directive to ensure that an email address isn’t already in use before allowing a user to save a form. With changes in AngularJS 1.3+, several new features are available to clean up the previous version of the directive and make it easier to work with. In this post I’ll update the previous post, walk-through some of the new features in a directive called `wcUnique`, and show how a few of the new features can be applied.  The code shown is part of the [Customer Manager Standard](https://github.com/DanWahlin/CustomerManagerStandard) sample application that’s available on Github.
-
-An example of the directive in action is shown next. In this example the email address shown is already in use by another user which causes the error message to be displayed.
-
-![](https://aspblogs.blob.core.windows.net/media/dwahlin/Windows-Live-Writer/Using-asyncValidators-to-Build-a-Custom-_B9B3/image_2.png)
-
-The directive is applied to the `email` input control using the following code:
+指令使用以下代码绑定到 `email` 输入框中：
 
 ```html
 <input type="email" name="email" 
@@ -49,10 +47,11 @@ The directive is applied to the `email` input control using the following code:
 ```
 
 You can see that a custom directive named `wc-unique` is applied as well as 2 properties named `wc-unique-key` and `wc-unique-property` (I prefer to add the `data-` prefix but it’s not required). Before jumping into the directive let’s take a look at an AngularJS factory that can be used to check if a value is unique or not.
+通过上面的代码你可以看到我们使用了一个叫做 `wc-unique` 的自定义指令，以及两个属性 `wc-unique-key` 和 `wc-unique-property` （我更喜欢为添加 `data-` 前缀，虽然这不是必须的）。在跳到指令代码之前，我们先看下 AngularJS 中可以用来检查一个值是否唯一的 factory 。
 
-## Creating the Factory
+## 创建 Factory
 
-Unique value checks typically rely on a call to a back-end data store of some type. AngularJS provides services such as `$http` and `$resource` that are perfect for that scenario. For this demonstration I’ll use a custom factory named `dataService` that relies on `$http` to make Ajax calls back to a server. It has a function in it named `checkUniqueValue()` that handles the unique checks. Note that I don’t typically distinguish between the term “factory” and “service” as far as the name goes since they ultimately do the same thing and “service” just sounds better to me (personal preference).
+唯一值校验需要依赖后端服务，AngularJS 提供了一些可以与后端通信的服务，如 `$http` 和 `$resource`。在这个例子中，我会使用一个叫做 `dataService` 自定义的 factory，依赖 `$http` 服务进行 Ajax 操作与后端通信。它内部使用一个叫做 `checkUniqueValue()` 的方法处理唯一值验证。要注意一下，我并没有特别去区分 "factory" 与 "service"，因为它们从根本上来说所做的事情其实是一样的，只是对我来说 "service" 可能更好听一些（个人爱好）。
 
 ```js
 (function () {
@@ -84,9 +83,9 @@ Unique value checks typically rely on a call to a back-end data store of some ty
 }());
 ```
 
-## Creating the Unique Value Directive
+## 创建唯一值指令
 
-To handle checking unique values I created a custom directive named `wcUnique` (the wc stands for Wahlin Consulting – my company). It’s a fairly simple directive that is restricted to being used as an attribute. The shell for the directive looks like the following:
+我创建了一个叫做 `wcUnique` 的指令用于处理唯一值的验证（`wc` 是指 Wahlin Consulting，作者所在的公司名）。这是一个相当简单的指令，仅限于被用作一个属性。指令的外壳基本如下：
 
 ```js
 function () {
@@ -216,3 +215,4 @@ Directives provide a great way to encapsulate functionality that can be used in 
 ---
 
 From [ASP.net](https://weblogs.asp.net/dwahlin/creating-custom-angularjs-directives-part-7-%E2%80%93-creating-a-unique-value-directive-using-asyncvalidators)
+
