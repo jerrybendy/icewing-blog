@@ -1,5 +1,5 @@
 ---
-title: React on ES6+
+title: 【译】React on ES6+
 date: 2016-08-30 14:53:28
 updated: 2016-08-30 14:53:28
 tags:
@@ -9,11 +9,11 @@ categories:
   - 前端
 ---
 
-While redesigning [Instagram Web](https://instagram.com/instagram/) from the inside out this year, we enjoyed using a number of ES6+ features to write our React components. Allow me to highlight some of the ways that these new language features can change the way you write a React app, making it easier and more fun than ever.
+在重新设计 [Instagram Web](https://instagram.com/instagram/) 的最近一年里，我们享受到很多使用 ES6+ 新特性写 React 组件的好处。下面我整理了一些可以方便写 React 应用语言特性，相信这会使工作变得更轻松愉快。
 
-## Classes
+## 类
 
-By far the most outwardly visible change to how we write React components using ES6+ comes about when we choose to use the [class definition syntax](https://babeljs.io/docs/learn-es2015/#classes). Instead of using the `React.createClass` method to define a component, we can define a bonafide ES6 class that extends `React.Component`:
+迄今为止我想在写组件时最能直观看到的变化就是 ES6+ 类的使用。关于 ES6 的类定义语言可 [参考这里](https://babeljs.io/docs/learn-es2015/#classes)。现在，我们可以写一个继承自 `React.Component` 的类来取代 `React.createClass` 的写法。
 
 ```js
 class Photo extends React.Component {
@@ -60,9 +60,9 @@ class EmbedModal extends React.Component {
 }
 ```
 
-## Property initializers
+## 属性初始化
 
-In the ES6+ class world, prop types and defaults live as static properties on the class itself. These, as well as the component’s initial state, can be defined using ES7 [property initializers](https://gist.github.com/jeffmo/054df782c05639da2adb):
+在 ES6+ 类的世界中，`propTypes` 以及组件的默认值都可以作为类本身的静态属性存在。类似的，组件中初始化 state 也可以使用 ES7 的 [属性初始化](https://gist.github.com/jeffmo/054df782c05639da2adb)：
 
 ```js
 // The ES5 way
@@ -105,40 +105,40 @@ class Video extends React.Component {
 }
 ```
 
-ES7 property initializers operate inside the class’ constructor, where `this` refers to the instance of the class under construction, so the initial state can still be made to depend on `this.props`. Notably, we no longer have to define prop defaults and the initial state object in terms of a getter function.
+ES7 的属性初始化代码将会在类的构造函数中被加载，在这里 `this` 指向类对象本身，所以在初始化 state 的代码中可以直接使用 `this.props`。尤其是我们不再需要使用一个 getter 的函数来定义 prop 的默认值和 state 对象。
 
-## Arrow functions
+## 箭头函数
 
-The `React.createClass` method used to perform some extra binding work on your component’s instance methods to make sure that, inside them, the `this` keyword would refer to the instance of the component in question.
+`React.createClass` 会执行一些额外的绑定工作以确保在组件内部 `this` 能够指向组件本身。
 
 ```js
-// Autobinding, brought to you by React.createClass
+// 自动绑定
 var PostInfo = React.createClass({
   handleOptionsButtonClick: function(e) {
-    // Here, 'this' refers to the component instance.
+    // 这里, 'this' 指向组件本身
     this.setState({showOptionsModal: true});
   },
 });
 ```
 
-Since we don’t involve the `React.createClass` method when we define components using the ES6+ class syntax, it would seem that we need to manually bind instance methods wherever we want this behavior:
+当我们使用 ES6+ 的类语法时就不会再需要 `React.createClass` 提供的这种辅助绑定，下面可以看到我们将要自己手动执行绑定的过程：
 
 ```js
-// Manually bind, wherever you need to
+// 在任何需要的地方都需要手动绑定
 class PostInfo extends React.Component {
   constructor(props) {
     super(props);
-    // Manually bind this method to the component instance...
+    // 手动绑定方法到组件实例
     this.handleOptionsButtonClick = this.handleOptionsButtonClick.bind(this);
   }
   handleOptionsButtonClick(e) {
-    // ...to ensure that 'this' refers to the component instance here.
+    // 需要确保 this 指向组件实例
     this.setState({showOptionsModal: true});
   }
 }
 ```
 
-Luckily, by combining two ES6+ features – [arrow functions](https://babeljs.io/docs/learn-es2015/#arrows) and property initializers – opt-in binding to the component instance becomes a breeze:
+幸运的时，结合两个 ES6+ 的新特性 —— [箭头函数语法](https://babeljs.io/docs/learn-es2015/#arrows) 和属性初始化语法将会使这种绑定变得轻而易举：
 
 ```js
 class PostInfo extends React.Component {
@@ -148,7 +148,7 @@ class PostInfo extends React.Component {
 }
 ```
 
-The body of ES6 arrow functions share the same lexical `this` as the code that surrounds them, which gets us the desired result because of the way that ES7 property initializers are scoped. [Peek under the hood](https://babeljs.io/repl/#?experimental=true&evaluate=true&loose=false&spec=false&code=class%20PostInfo%20extends%20React.Component%20%7B%0A%09handleOptionsButtonClick%20%3D%20(e)%20%3D%3E%20%7B%0A%20%20%20%20this.setState(%7BshowOptionsModal%3A%20true%7D)%3B%0A%20%20%7D%0A%7D) to see why this works.
+ES6 的箭头函数内部没有自己独立的 `this`，所以就使用了外层的 `this`，加上 ES7 的属性初始化语法中的 `this` 总是指向类实例本身，所以函数内的 `this` 自然也就指向了类实例。可以 [点击这里](https://babeljs.io/repl/#?experimental=true&evaluate=true&loose=false&spec=false&code=class%20PostInfo%20extends%20React.Component%20%7B%0A%09handleOptionsButtonClick%20%3D%20(e)%20%3D%3E%20%7B%0A%20%20%20%20this.setState(%7BshowOptionsModal%3A%20true%7D)%3B%0A%20%20%7D%0A%7D) 查看它是如何工作的。
 
 ## Dynamic property names & template strings
 
