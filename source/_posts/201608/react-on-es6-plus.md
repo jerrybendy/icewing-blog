@@ -1,7 +1,7 @@
 ---
-title: React on ES6+
+title: 【译】React on ES6+
 date: 2016-08-30 14:53:28
-updated: 2016-08-30 14:53:28
+updated: 2016-09-23 22:50:28
 tags:
   - react
   - ES6
@@ -9,11 +9,11 @@ categories:
   - 前端
 ---
 
-While redesigning [Instagram Web](https://instagram.com/instagram/) from the inside out this year, we enjoyed using a number of ES6+ features to write our React components. Allow me to highlight some of the ways that these new language features can change the way you write a React app, making it easier and more fun than ever.
+在重新设计 [Instagram Web](https://instagram.com/instagram/) 的最近一年里，我们享受到很多使用 ES6+ 新特性写 React 组件的好处。下面我整理了一些可以方便写 React 应用语言特性，相信这会使工作变得更轻松愉快。
 
-## Classes
+## 类
 
-By far the most outwardly visible change to how we write React components using ES6+ comes about when we choose to use the [class definition syntax](https://babeljs.io/docs/learn-es2015/#classes). Instead of using the `React.createClass` method to define a component, we can define a bonafide ES6 class that extends `React.Component`:
+迄今为止我想在写组件时最能直观看到的变化就是 ES6+ 类的使用。关于 ES6 的类定义语言可 [参考这里](https://babeljs.io/docs/learn-es2015/#classes)。现在，我们可以写一个继承自 `React.Component` 的类来取代 `React.createClass` 的写法。
 
 ```js
 class Photo extends React.Component {
@@ -23,7 +23,7 @@ class Photo extends React.Component {
 }
 ```
 
-Right away, you’ll notice a subtle difference – a more terse syntax is available to you when defining classes:
+当然，你会发现一些细小的变化 —— 在定义类的时候可以使用一些更简短的语法：
 
 ```js
 // The ES5 way
@@ -40,9 +40,9 @@ class Photo extends React.Component {
 }
 ```
 
-Notably, we’ve dropped two parentheses and a trailing semicolon, and for each method declared we omit a colon, a `function` keyword, and a comma.
+尤其是我们去掉了两个圆括号和一个分号，每一个方法的声明我们都省略了一个冒号、一个 `function` 关键字和一个逗号。
 
-All of the lifecycle methods but one can be defined as you would expect when using the new class syntax. The class’ `constructor` now assumes the role previously filled by `componentWillMount`:
+几乎所有的生命周期方法，（`componentWillMount` 除外）都可以使用新的类语法定义。`componentWillMount` 需要写在组件的初始化代码中。
 
 ```js
 // The ES5 way
@@ -55,14 +55,14 @@ var EmbedModal = React.createClass({
 class EmbedModal extends React.Component {
   constructor(props) {
     super(props);
-    // Operations usually carried out in componentWillMount go here
+    // 这里可以进行一些组件初始化的工作，componentWillMount 也移到这里执行
   }
 }
 ```
 
-## Property initializers
+## 属性初始化
 
-In the ES6+ class world, prop types and defaults live as static properties on the class itself. These, as well as the component’s initial state, can be defined using ES7 [property initializers](https://gist.github.com/jeffmo/054df782c05639da2adb):
+在 ES6+ 类的世界中，`propTypes` 以及组件的默认值都可以作为类本身的静态属性存在。类似的，组件中初始化 state 也可以使用 ES7 的 [属性初始化](https://gist.github.com/jeffmo/054df782c05639da2adb)：
 
 ```js
 // The ES5 way
@@ -105,40 +105,40 @@ class Video extends React.Component {
 }
 ```
 
-ES7 property initializers operate inside the class’ constructor, where `this` refers to the instance of the class under construction, so the initial state can still be made to depend on `this.props`. Notably, we no longer have to define prop defaults and the initial state object in terms of a getter function.
+ES7 的属性初始化代码将会在类的构造函数中被加载，在这里 `this` 指向类对象本身，所以在初始化 state 的代码中可以直接使用 `this.props`。尤其是我们不再需要使用一个 getter 的函数来定义 prop 的默认值和 state 对象。
 
-## Arrow functions
+## 箭头函数
 
-The `React.createClass` method used to perform some extra binding work on your component’s instance methods to make sure that, inside them, the `this` keyword would refer to the instance of the component in question.
+`React.createClass` 会执行一些额外的绑定工作以确保在组件内部 `this` 能够指向组件本身。
 
 ```js
-// Autobinding, brought to you by React.createClass
+// 自动绑定
 var PostInfo = React.createClass({
   handleOptionsButtonClick: function(e) {
-    // Here, 'this' refers to the component instance.
+    // 这里, 'this' 指向组件本身
     this.setState({showOptionsModal: true});
   },
 });
 ```
 
-Since we don’t involve the `React.createClass` method when we define components using the ES6+ class syntax, it would seem that we need to manually bind instance methods wherever we want this behavior:
+当我们使用 ES6+ 的类语法时就不会再需要 `React.createClass` 提供的这种辅助绑定，下面可以看到我们将要自己手动执行绑定的过程：
 
 ```js
-// Manually bind, wherever you need to
+// 在任何需要的地方都需要手动绑定
 class PostInfo extends React.Component {
   constructor(props) {
     super(props);
-    // Manually bind this method to the component instance...
+    // 手动绑定方法到组件实例
     this.handleOptionsButtonClick = this.handleOptionsButtonClick.bind(this);
   }
   handleOptionsButtonClick(e) {
-    // ...to ensure that 'this' refers to the component instance here.
+    // 需要确保 this 指向组件实例
     this.setState({showOptionsModal: true});
   }
 }
 ```
 
-Luckily, by combining two ES6+ features – [arrow functions](https://babeljs.io/docs/learn-es2015/#arrows) and property initializers – opt-in binding to the component instance becomes a breeze:
+幸运的时，结合两个 ES6+ 的新特性 —— [箭头函数语法](https://babeljs.io/docs/learn-es2015/#arrows) 和属性初始化语法将会使这种绑定变得轻而易举：
 
 ```js
 class PostInfo extends React.Component {
@@ -148,11 +148,11 @@ class PostInfo extends React.Component {
 }
 ```
 
-The body of ES6 arrow functions share the same lexical `this` as the code that surrounds them, which gets us the desired result because of the way that ES7 property initializers are scoped. [Peek under the hood](https://babeljs.io/repl/#?experimental=true&evaluate=true&loose=false&spec=false&code=class%20PostInfo%20extends%20React.Component%20%7B%0A%09handleOptionsButtonClick%20%3D%20(e)%20%3D%3E%20%7B%0A%20%20%20%20this.setState(%7BshowOptionsModal%3A%20true%7D)%3B%0A%20%20%7D%0A%7D) to see why this works.
+ES6 的箭头函数内部没有自己独立的 `this`，所以就使用了外层的 `this`，加上 ES7 的属性初始化语法中的 `this` 总是指向类实例本身，所以函数内的 `this` 自然也就指向了类实例。可以 [点击这里](https://babeljs.io/repl/#?experimental=true&evaluate=true&loose=false&spec=false&code=class%20PostInfo%20extends%20React.Component%20%7B%0A%09handleOptionsButtonClick%20%3D%20(e)%20%3D%3E%20%7B%0A%20%20%20%20this.setState(%7BshowOptionsModal%3A%20true%7D)%3B%0A%20%20%7D%0A%7D) 查看它是如何工作的。
 
-## Dynamic property names & template strings
+## 动态属性名 & 模板字符串
 
-One of the [enhancements to object literals](https://babeljs.io/docs/learn-es2015/#enhanced-object-literals) includes the ability to assign to a derived property name. We might have originally done something like this to set a piece of state:
+其中一个 [对象字面量增强](https://babeljs.io/docs/learn-es2015/#enhanced-object-literals) 的特性使我们有可以分配一个分离的属性名，在此之前我们可能会像下面这样定义 state 的一部分：
 
 ```js
 var Form = React.createClass({
@@ -164,7 +164,7 @@ var Form = React.createClass({
 });
 ```
 
-Now, we have the ability to construct objects whose property names are determined by a JavaScript expression at runtime. Here, we use a [template string](https://babeljs.io/docs/learn-es2015/#template-strings) to determine which property to set on state:
+现在我们可以在写一个对象字面量的时候直接使用一个 Javascript 表达式来表示对象的 key。这里我们使用一个 [模板字符串](https://babeljs.io/docs/learn-es2015/#template-strings) 来表示新 state 的 key：
 
 ```js
 class Form extends React.Component {
@@ -176,16 +176,16 @@ class Form extends React.Component {
 }
 ```
 
-## Destructuring & spread attributes
+## 解构 & 属性展开
 
-Often when composing components, we might want to pass down most of a parent component’s props to a child component, but not all of them. In combining ES6+ [destructuring](https://babeljs.io/docs/learn-es2015/#destructuring) with JSX [spread attributes](https://facebook.github.io/react/docs/jsx-spread.html), this becomes possible without ceremony:
+通常，当我们组合组件时，我们可能会想从父组件中传递很多 prop 到子组件，但不一定是全部。基于 ES6+ 的 [解构赋值语法](https://babeljs.io/docs/learn-es2015/#destructuring) 和 JSX 的 [属性展开语法](https://facebook.github.io/react/docs/jsx-spread.html) ，现在我们可以更随意的去写：
 
 ```js
 class AutoloadingPostsGrid extends React.Component {
   render() {
     var {
       className,
-      ...others,  // contains all properties of this.props except for className
+      ...others,  // 包含 this.props 的全部，除了 className 
     } = this.props;
     return (
       <div className={className}>
@@ -197,7 +197,8 @@ class AutoloadingPostsGrid extends React.Component {
 }
 ```
 
-We can combine JSX spread attributes with regular attributes too, taking advantage of a simple precedence rule to implement overrides and defaults. This element will acquire the `className` “override” even if there exists a `className` property in `this.props`:
+我们也可以结合 JSX 属性展开语法和普通属性，利用一个简单的优先规则实现覆盖和默认。
+This element will acquire the `className` “override” even if there exists a `className` property in `this.props`:
 
 ```js
 <div {...this.props} className="override">
@@ -213,11 +214,12 @@ This element will regularly have the `className` “base” unless there exists 
 </div>
 ```
 
-## Thanks for reading
+## 感谢阅读
 
-I hope that you enjoy using ES6+ language features to write React code as much as we do. Thanks to my colleagues for their contributions to this post, and thanks especially to the Babel team for making the future available to all of us, today.
+希望你可以享受更多 ES6+ 新特性带来的写 React 组件的乐趣。感谢所有为这篇文章做过贡献的人，更要感谢 Babel 的团队让我们可以在今天用到这么多未来的新特性。
 
 ---
 
-via [babelJs.io](https://babeljs.io/blog/2015/06/07/react-on-es6-plus)
+* 原文地址： [babelJs.io](https://babeljs.io/blog/2015/06/07/react-on-es6-plus)
+* 翻译：冰翼
 
