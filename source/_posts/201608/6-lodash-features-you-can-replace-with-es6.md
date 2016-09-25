@@ -1,7 +1,7 @@
 ---
-title: 10 Lodash Features You Can Replace with ES6
+title: 【译】十个可以使用 ES6 代替的 Lodash 特性
 date: 2016-08-30 21:45:09
-updated: 2016-08-30 21:45:09
+updated: 2016-09-25 22:20:09
 tags:
   - ES6
   - lodash
@@ -9,11 +9,11 @@ categories:
   - 前端
 ---
 
-[Lodash](https://lodash.com/) is the [most depended on npm package](https://www.npmjs.com/browse/depended) right now, but if you’re using ES6, you might not actually need it. In this article, we’re going to look at using native collection methods with arrow functions and other new ES6 features to help us cut corners around many popular use cases.
+[Lodash](https://lodash.com/) 应该算是目前在 npm 上被依赖的最多的包了吧，但是如果你使用 ES6，也许你不再需要它。在这篇文章中，我们将尝试使用一些 ES6 的新特性来解决几种常见的问题。
 
 ## 1. Map, Filter, Reduce
 
-These collection methods make transforming data a breeze and with near universal support, we can pair them with arrow functions to help us write terse alternatives to the implementations offered by Lodash.
+这些方法使转换数据变得轻而易举，而且非常通用。我们可以使用 ES6 的箭头函数语法，帮助我们用更简短的方式代替 Lodash 的语法。
 
 ```js
 _.map([1, 2, 3], function(n) { return n * 3; });
@@ -30,11 +30,11 @@ _.filter([1, 2, 3], function(n) { return n <= 2; });
 [1, 2, 3].filter(n => n <= 2);
 ```
 
-It doesn’t stop here either, if we’re using an ES6 polyfill, we can also use [find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find), [some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some), [every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) and [reduceRight](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight) too.
+不仅如此，如果你使用 ES6 的 polyfill，我们还可以使用 [find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)、[some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)、[every](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every) 以及 [reduceRight](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight) 等方法。
 
 ## 2. Head & Tail
 
-[Destructuring syntax](https://www.sitepoint.com/preparing-ecmascript-6-destructuring-assignment/) allows us to get the head and tail of a list without utility functions.
+[解构语法](https://www.sitepoint.com/preparing-ecmascript-6-destructuring-assignment/) 允许我们轻而易举的获取一个列表的头部或尾部，不需要依赖任何函数。
 
 ```js
 _.head([1, 2, 3]);
@@ -47,7 +47,7 @@ _.tail([1, 2, 3]);
 const [head, ...tail] = [1, 2, 3];
 ```
 
-It’s also possible to get the initial elements and the last element in a similar way.
+也可以使用类似的方法达到 `initial` 和 `last` 的效果。
 
 ```js
 _.initial([1, 2, 3]);
@@ -60,7 +60,7 @@ _.last([1, 2, 3]);
 const [last, ...initial] = [1, 2, 3].reverse();
 ```
 
-If you find it annoying that [reverse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse) mutates the data structure, then you can use the spread operator to clone the array before calling reverse.
+如果你介意 [reverse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse) 改变了原来的数组，还可以使用另一个解构将原数组复制一份。
 
 ```js
 const xs = [1, 2, 3];
@@ -69,7 +69,7 @@ const [last, ...initial] = [...xs].reverse();
 
 ## 3. Rest & Spread
 
-The [rest](https://lodash.com/docs#rest) and [spread](https://lodash.com/docs#spread) functions allow us to define and invoke functions that accept a variable number of arguments. ES6 introduced dedicated syntaxes for both of these operations.
+[rest](https://lodash.com/docs#rest) 和 [spread](https://lodash.com/docs#spread) 函数允许我们定义可以接收可变数量参数的函数。使用 ES6 可以更完美的支持 rest 和 spread。
 
 ```js
 var say = _.rest(function(what, names) {
@@ -95,7 +95,7 @@ say('hello', 'fred', 'barney', 'pebbles');
 // "hello fred, barney, & pebbles"
 ```
 
-## 4. Curry
+## 4. Curry （柯里化）
 
 Without a higher level language such as [TypeScript](http://www.typescriptlang.org/) or [Flow](http://flowtype.org/), we can’t give our functions type signatures which makes [currying](https://www.sitepoint.com/currying-in-functional-javascript/) quite difficult. When we receive curried functions it’s hard to know how many arguments have already been supplied and which we will need to provide next. With arrow functions we can define curried functions explicitly, making them easier to understand for other programmers.
 
