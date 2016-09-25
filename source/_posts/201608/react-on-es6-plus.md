@@ -148,7 +148,17 @@ class PostInfo extends React.Component {
 }
 ```
 
-ES6 的箭头函数内部没有自己独立的 `this`，所以就使用了外层的 `this`，加上 ES7 的属性初始化语法中的 `this` 总是指向类实例本身，所以函数内的 `this` 自然也就指向了类实例。可以 [点击这里](https://babeljs.io/repl/#?experimental=true&evaluate=true&loose=false&spec=false&code=class%20PostInfo%20extends%20React.Component%20%7B%0A%09handleOptionsButtonClick%20%3D%20(e)%20%3D%3E%20%7B%0A%20%20%20%20this.setState(%7BshowOptionsModal%3A%20true%7D)%3B%0A%20%20%7D%0A%7D) 查看它是如何工作的。
+ES6 的箭头函数内部没有自己独立的 `this`，所以就使用了外层的 `this`，加上 ES7 的属性初始化语法中的 `this` 总是指向类实例本身，所以函数内的 `this` 自然也就指向了类实例。可以 [点击这里](https://goo.gl/MQW2rf) 查看它是如何工作的。
+
+> *注：如果上面的短网址打不开的话可以 [点击这里](https://babeljs.io/repl/#?babili=false&evaluate=true&lineWrap=false&presets=es2015%2Creact%2Cstage-2&experimental=true&loose=false&spec=false) 打开 babel 的 REPL 环境，并在左侧输入以下内容，右侧即可显示编译后的内容：
+
+```js
+class PostInfo extends React.Component {
+  handleOptionsButtonClick = (e) => {
+   this.setState({showOptionsModal: true});
+  }
+}
+```
 
 ## 动态属性名 & 模板字符串
 
