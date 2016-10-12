@@ -3,13 +3,14 @@ title: CodeIgniter在IIS、Apache、SAE和NginX上的伪静态设置方法
 tags:
   - htaccess
   - IIS
-  - NginX
+  - Nginx
   - 伪静态
   - CodeIgniter
 id: 1118
 categories:
   - PHP
 date: 2014-09-25 15:57:56
+updated: 2016-10-12 22:36:00
 ---
 
 [CodeIginter](http://blog.icewingcc.com/category/php/codeigniter)是一个很不错的轻量级PHP框架，文档也比较全面。关于CI去除“index.php”的伪静态设置在官方的文档中却只提及了一点，而且给出的方法对于静态文件还会出现错误。
@@ -76,3 +77,5 @@ handle:
 ```
 
 如果文件中已有“handle”段可以在后面追加这部分内容。代码中的三行以“compress”结尾的内容是静态文件压缩，不使用压缩的话可以删除它们。
+
+
