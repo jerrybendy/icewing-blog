@@ -3,13 +3,13 @@ title: jQuery+Ajax+PHP实现“喜欢”评级功能代码
 tags:
   - AJAX
   - HTML/CSS
-  - JQery
+  - JQuery
   - PHP
 id: 678
 categories:
   - PHP
 date: 2013-10-14 22:14:07
-updated: 2016-05-22 11:31:59
+updated: 2016-11-07 09:52:00
 ---
 
 本文章来给大家介绍一个jQuery+Ajax+PHP实现“喜欢”评级功能代码，用户点击页面中自己喜欢的图片上的红心按钮时，前端页面向后台发送一个ajax请求，后台PHP程序接收请求后，查询IP库中是否已经有该用户的点击记录，如果没有，则将对应的数值+1，同时将该用户IP信息写入IP库，反之则告诉用户已经“喜欢过了”。
@@ -201,3 +201,5 @@ return ($ip);
 &nbsp;
 
 来源：[PHP100](http://www.php100.com/html/php/lei/2013/0905/5374.html)
+
+
