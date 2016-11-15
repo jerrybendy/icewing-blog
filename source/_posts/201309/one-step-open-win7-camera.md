@@ -1,5 +1,5 @@
 ---
-title: '只需一步即可开启Windows7的摄像头并将其添加到资源管理器中  '
+title: 只需一步即可开启Windows7的摄像头并将其添加到资源管理器中
 tags:
   - Windows7
   - 摄像头

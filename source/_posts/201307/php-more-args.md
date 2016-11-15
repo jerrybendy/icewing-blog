@@ -7,6 +7,7 @@ id: 392
 categories:
   - PHP
 date: 2013-07-05 23:39:40
+updated: 2016-11-15 09:15:00
 ---
 
 你可能知道PHP允许你定义一个默认参数的函数。但你可能并不知道PHP还允许你定义一个完全任意的参数的函数
@@ -48,6 +49,21 @@ date: 2013-07-05 23:39:40
 
 func_get_args()方法用于返回function的参数列表，返回值是一个数组。
 
-&nbsp;
+---
+#### 2016-11-15 备注
+
+PHP 5.6 及以上版本可以使用更简单的方式使用任意数量的参数：
+
+```php
+function foo(...$args)
+{
+  foreach ($args as $k => $v) {
+    echo "arg" . ($k + 1) . ": $v \n";
+  }
+}
+```
+
+
+
 
 来自：http://blog.sina.com.cn/s/blog_5747a69601019lul.html
