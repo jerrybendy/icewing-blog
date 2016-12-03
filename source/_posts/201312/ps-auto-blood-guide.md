@@ -67,6 +67,6 @@ end if
 
 VBS文件下载地址：
 
-[下载地址](http://share.icewingcc.com/download/NTQyM2QxZDViMzc4Mg.html)
+[下载地址](https://share.icewing.cc/download/NTQyM2QxZDViMzc4Mg.html)
 
 &nbsp;

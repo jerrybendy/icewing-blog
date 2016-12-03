@@ -52,4 +52,4 @@ RewriteRule ^([a-zA-Z0-9_-]+)$ redirect.php?alias=$1 [L]
 </IfModule>
 ```
 
-[网盘下载](http://share.icewingcc.com/download/NTNkM2MxYWU3NjI0Zg.html)
+[网盘下载](https://share.icewing.cc/download/NTNkM2MxYWU3NjI0Zg.html)

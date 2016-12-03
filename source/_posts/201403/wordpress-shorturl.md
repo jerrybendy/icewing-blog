@@ -90,4 +90,4 @@ function icewingcc_short_url_callback($matches){
 
 代码打包下载：
 
-[下载地址](http://share.icewingcc.com/download/NTQwZGNkZjIyZGNmMQ.html)
+[下载地址](https://share.icewing.cc/download/NTQwZGNkZjIyZGNmMQ.html)

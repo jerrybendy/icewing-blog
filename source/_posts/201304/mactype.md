@@ -27,7 +27,7 @@ MacType就是一个开源的字体渲染引擎，能让系统字体显示更加�
 
 ### 如何安装
 
-大家可以在网上搜索下载这款软件，或者去我的去盘下载，附上下载地址：[点此下载](http://share.icewingcc.com/download/NTNkM2JkNTViMWMwZg.html)
+大家可以在网上搜索下载这款软件，或者去我的去盘下载，附上下载地址：[点此下载](https://share.icewing.cc/download/NTNkM2JkNTViMWMwZg.html)
 
 MacType安装后，你可以选择设置为注册表加载，服务加载，非自动加载或系统托盘运行加载MacType字体渲染引擎。这几个加载方式是有所不同的，前两者是直接利用系统自动加载，好处是能够快速完成MacType字体渲染，但开关和设置比较麻烦，笔者强烈建议该方式；后两者则为手动执行，设置和开关比较方便，兼容性较好，但启动以及流畅程序可能不及前者。建议以手动方式设置好配置后再使用注册表或服务加载。
 
@@ -45,7 +45,7 @@ MacType自带不少字体样式，例如非常优秀的MacType2010，LCD.W7和XM
 
 关xhei字体的具体设计方法可以参见百度贴吧： [http://tieba.baidu.com/p/1979437533](http://tieba.baidu.com/p/1979437533)
 
-xhei字体的下载地址：[http://share.icewingcc.com/download/NTNkM2JmM2M0OWEyMA.html](http://share.icewingcc.com/download/NTNkM2JmM2M0OWEyMA.html)
+xhei字体的下载地址：[https://share.icewing.cc/download/NTNkM2JmM2M0OWEyMA.html](https://share.icewing.cc/download/NTNkM2JmM2M0OWEyMA.html)
 
 &nbsp;
 

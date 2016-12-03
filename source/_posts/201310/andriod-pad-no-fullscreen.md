@@ -11,7 +11,7 @@ updated: 2016-05-22 11:29:24
 
 使用安卓平板已经一段时间了，发现一个挺无奈的问题：似乎只有系统自带的软件，像自带的看图软件才能让整个隐藏下面的状态栏，而别的软件，无论是视频软件、图片软件还是游戏最多只能把下面状态栏的按键变成点，还是不能隐藏掉，不仅会占掉很大一部分屏幕空间造成不美观，在玩游戏的时候还很容易造成误碰。。。既然系统没有这个隐藏的功能就试图用软件来解决吧。
 
-在搜索N久后最终发现了一个款软件挺好用的，名叫“<span style="color: #ff0000;">Full！Screen</span>”，[下载地址](http://share.icewingcc.com/download/NTNkM2MzNTQ4YTE4OQ.html)。
+在搜索N久后最终发现了一个款软件挺好用的，名叫“<span style="color: #ff0000;">Full！Screen</span>”，[下载地址](https://share.icewing.cc/download/NTNkM2MzNTQ4YTE4OQ.html)。
 
 ![PIC_20131025_205531_13C](https://cdn.icewing.cc/wp-content/uploads/2013/10/PIC_20131025_205531_13C-600x450.png)
 
