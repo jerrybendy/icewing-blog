@@ -8,7 +8,7 @@
   "scripts": {
     "host": "php -S 0.0.0.0:4002 -t public/",
     "s": "hexo s",
-    "build": "hexo g && gulp build && hexo d"
+    "build": "hexo g && gulp build"
   },
   "dependencies": {
     "gulp": "^3.9.1",
