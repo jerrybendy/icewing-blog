@@ -7,3 +7,5 @@ source/_data/next.yml
 _config.yml
 hexo notes.md
 themes/icewing/*
+.MWebMetaData
+Dockerfile
