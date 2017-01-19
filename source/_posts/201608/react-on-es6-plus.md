@@ -9,6 +9,11 @@ categories:
   - 前端
 ---
 
+> 本文由冰翼博客翻译自 [babelJs.io](https://babeljs.io/blog/2015/06/07/react-on-es6-plus)
+> 原文作者： Steven Luscher （[Github](https://github.com/steveluscher)）
+
+
+
 在重新设计 [Instagram Web](https://instagram.com/instagram/) 的最近一年里，我们享受到很多使用 ES6+ 新特性写 React 组件的好处。下面我整理了一些可以方便写 React 应用语言特性，相信这会使工作变得更轻松愉快。
 
 ## 类
@@ -228,8 +233,4 @@ This element will regularly have the `className` “base” unless there exists 
 
 希望你可以享受更多 ES6+ 新特性带来的写 React 组件的乐趣。感谢所有为这篇文章做过贡献的人，更要感谢 Babel 的团队让我们可以在今天用到这么多未来的新特性。
 
----
-
-* 原文地址： [babelJs.io](https://babeljs.io/blog/2015/06/07/react-on-es6-plus)
-* 翻译：冰翼
 
