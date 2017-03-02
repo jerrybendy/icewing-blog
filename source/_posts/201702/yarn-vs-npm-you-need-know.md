@@ -1,9 +1,12 @@
 ---
 title: "Yarn vs npm: 你需要知道的一切"
 date: 2017-02-23 16:39:49
-updated: 2017-02-23 16:39:49
+updated: 2017-03-02 15:25:49
 tags:
+  - npm
+  - yarn
 categories:
+  - 前端
 ---
 
 
