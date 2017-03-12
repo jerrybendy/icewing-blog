@@ -10,6 +10,8 @@ categories:
   - PHP
 ---
 
+> 代码若有改动不再更新文章，请以 Gist 上最新的代码为准。[链接](https://gist.github.com/jerrybendy/dc495f16c5a8da11653e7ecca41ec133)
+
 相信很多程序（尤其是采集类的程序）都会有需要把网址的相对路径转换成绝对路径的需要，例如采集到某页面的HTML代码中包含资源文件经常会看到这样的文件名：
 
 ```html
@@ -180,3 +182,4 @@ function normalizePath($path)
 参考资料：
 
 * [PHP Document](http://php.net/manual/zh/function.realpath.php#112367)
+
